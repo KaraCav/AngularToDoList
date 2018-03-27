@@ -1,0 +1,37 @@
+index.html
+<!DOCTYPE html>
+<html lang="en" ng-app="toDoApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="kara cavanaugh" />
+    <meta name="description" content="angular app" />
+    <!-- <link rel="stylesheet" href="./styles.css"> </link> -->
+
+    <title>My Site</title>
+</head>
+
+<body>
+    <div ng-controller="toDoController">
+        <form name="listform" ng-submit="addToDo()">
+            <input type="text" ng-model="newToDo">
+        </form>
+    </div>
+    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js'></script>
+    <script>
+        angular.module('ToDoApp', []).
+            controller('toDoController', ['$scope', function ($scope) {
+                $scope.todos = [{
+                    'title': 'Build a ToDo list', 'done': false
+                }];
+                // add new list item 
+                $scope.addToDo = function () { $scope.todos.push({ 'title': $scope.newToDo, 'done': false }); $scope.newToDo = ''; console.log($scope.newToDo) }
+                // clear finished list items 
+                $scope.todos = $scope.todos.filter(function (item) { return !item.done; })
+            }])
+
+    </script>
+
+</body>
+
+</html>
