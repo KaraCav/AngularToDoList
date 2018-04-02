@@ -1,36 +1,65 @@
-index.html
 <!DOCTYPE html>
-<html lang="en" ng-app="toDoApp">
+<html lang="en" ng-app="ToDoApp">
 
 <head>
     <meta charset="utf-8">
     <meta name="author" content="kara cavanaugh" />
     <meta name="description" content="angular app" />
-    <!-- <link rel="stylesheet" href="./styles.css"> </link> -->
+    <style>
+        .done {
+            text-decoration: line-through;
+            color: #aaa;
+        }
 
-    <title>My Site</title>
+        ul {
+            margin-top: 20px;
+        }
+
+        button {
+            margin: 10px;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .add {
+            background-color: lightgreen
+        }
+
+        .remove {
+            background-color: pink
+        }
+    </style>
+    <title>To Do App</title>
 </head>
 
 <body>
-    <div ng-controller="toDoController">
-        <form name="listform" ng-submit="addToDo()">
-            <input type="text" ng-model="newToDo">
-        </form>
-    </div>
-    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js'></script>
-    <script>
-        angular.module('ToDoApp', []).
-            controller('toDoController', ['$scope', function ($scope) {
-                $scope.todos = [{
-                    'title': 'Build a ToDo list', 'done': false
-                }];
-                // add new list item 
-                $scope.addToDo = function () { $scope.todos.push({ 'title': $scope.newToDo, 'done': false }); $scope.newToDo = ''; console.log($scope.newToDo) }
-                // clear finished list items 
-                $scope.todos = $scope.todos.filter(function (item) { return !item.done; })
-            }])
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 
-    </script>
+    <div>
+        <h1>Weekly To Do List</h1>
+    </div>
+    <div ng-controller="toDoController">
+        <div class="form">
+            <form name="listform" ng-submit="addToDo()">
+                <input type="text" ng-model="newToDo" name="submitToDo" required/>
+                <button class="add">Add Item</button>
+            </form>
+            <button class="remove" ng-click="clearCompleted()">Clear Completed</button>
+        </div>
+
+        <ul>
+            <li ng-repeat="todo in todos">
+                <span ng-class="{'done': todo.done}">{{todo.title}}</span>
+
+                <input type="checkbox" ng-model="todo.done" </ul>
+            </li>
+    </div>
+
+
+    <script src="./script.js" />
 
 </body>
 
